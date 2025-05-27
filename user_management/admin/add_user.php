@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$pass', '$role')";
     $conn->query($sql);
-    header("Location: dashboard_admin.php"); // Pastikan ini mengarah ke dashboard admin jika ini untuk admin
+    header("Location: dashboard_admin.php"); 
     exit();
 }
 ?>
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         label {
             font-weight: bold;
             margin-bottom: 5px;
-            display: block; /* Agar label berada di baris sendiri */
+            display: block; 
         }
         input[type="text"],
         input[type="email"],
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-sizing: border-box;
         }
         button[type="submit"] {
-            background-color: #28a745; /* Warna hijau untuk simpan */
+            background-color: #28a745; 
             color: white;
             padding: 12px 20px;
             border: none;
