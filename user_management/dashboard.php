@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php'; // Pastikan path ke db.php sudah benar
+include 'db.php'; 
 
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
@@ -8,35 +8,35 @@ if (!isset($_SESSION["user"])) {
 }
 $user = $_SESSION["user"];
 
-$message = ''; // Variabel untuk menyimpan pesan sukses/error
+$message = ''; 
 
-// Proses update profil
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $user['id'];
     $name = $_POST["name"];
     $email = $_POST["email"];
 
-    // Menggunakan prepared statements untuk keamanan
+ 
     $sql_update = "UPDATE users SET name=?, email=? WHERE id=?";
     $stmt = $conn->prepare($sql_update);
     $stmt->bind_param("ssi", $name, $email, $id);
 
-    // Cek apakah user upload foto baru
+   
     if (isset($_FILES["photo"]) && $_FILES["photo"]["error"] === 0) {
-        $upload_dir = "uploads/"; // Pastikan folder 'uploads' ada dan writable
-        $photo = time() . "_" . basename($_FILES["photo"]["name"]); // Menggunakan basename untuk keamanan
+        $upload_dir = "uploads/"; 
+        $photo = time() . "_" . basename($_FILES["photo"]["name"]); 
         $target_file = $upload_dir . $photo;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-        // Validasi tipe file
+       
         $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
         if (!in_array($imageFileType, $allowed_types)) {
             $message = "<p class='message error'>Maaf, hanya file JPG, JPEG, PNG & GIF yang diperbolehkan.</p>";
-        } else if ($_FILES["photo"]["size"] > 5000000) { // Ukuran file maks 500KB
+        } else if ($_FILES["photo"]["size"] > 5000000) { 
             $message = "<p class='message error'>Maaf, ukuran file terlalu besar.</p>";
         } else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-                // Hapus foto lama jika ada dan bukan foto default
+                
                 if (!empty($user['photo']) && file_exists($upload_dir . $user['photo']) && $user['photo'] !== 'default_profile.png') {
                     unlink($upload_dir . $user['photo']);
                 }
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt_photo->bind_param("si", $photo, $id);
                 $stmt_photo->execute();
                 $stmt_photo->close();
-                $user['photo'] = $photo; // Update session photo
+                $user['photo'] = $photo; 
                 $message = "<p class='message success'>Profil dan foto berhasil diperbarui!</p>";
             } else {
                 $message = "<p class='message error'>Maaf, terjadi kesalahan saat mengunggah foto Anda.</p>";
@@ -56,9 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
         $user['name'] = $name;
         $user['email'] = $email;
-        $_SESSION["user"] = $user; // Update session dengan data baru
+        $_SESSION["user"] = $user; 
 
-        if (empty($message)) { // Jika tidak ada pesan error dari upload foto
+        if (empty($message)) { 
              $message = "<p class='message success'>Profil berhasil diperbarui.</p>";
         }
     } else {
@@ -67,10 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 }
 
-// Set foto default jika tidak ada foto profil
+
 $display_photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : 'default_profile.png';
-// Anda perlu memastikan ada file 'default_profile.png' di folder 'uploads/'
-// atau ganti dengan placeholder URL jika Anda tidak punya gambar default
+
 ?>
 
 <!DOCTYPE html>
@@ -89,8 +88,8 @@ $display_photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : 'de
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh; /* Pastikan body mengambil tinggi penuh */
-            justify-content: center; /* Pusatkan konten vertikal */
+            min-height: 100vh; 
+            justify-content: center; 
         }
         .profile-container {
             background-color: #ffffff;
@@ -105,17 +104,17 @@ $display_photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : 'de
         .profile-header {
             display: flex;
             align-items: center;
-            justify-content: center; /* Pusatkan header */
+            justify-content: center; 
             gap: 15px;
             margin-bottom: 25px;
-            flex-wrap: wrap; /* Untuk responsif */
+            flex-wrap: wrap; 
         }
         .profile-photo {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #007bff; /* Border biru sekitar foto */
+            border: 4px solid #007bff; 
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         h2 {
@@ -131,20 +130,20 @@ $display_photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : 'de
             font-size: 1.4em;
         }
         .logout-link {
-            display: inline-block; /* Agar bisa diatur padding dll */
-            background-color: #dc3545; /* Merah */
+            display: inline-block; 
+            background-color: #dc3545; 
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
             text-decoration: none;
             font-size: 1em;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 20px; /* Jarak dari form */
+            margin-top: 20px; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         .logout-link:hover {
             background-color: #c82333;
-            transform: translateY(-2px); /* Efek hover ringan */
+            transform: translateY(-2px); 
         }
         form {
             display: flex;
@@ -167,7 +166,7 @@ $display_photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : 'de
             border: 1px solid #ddd;
             border-radius: 6px;
             font-size: 1em;
-            box-sizing: border-box; /* Penting untuk padding */
+            box-sizing: border-box; 
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         input[type="text"]:focus,
@@ -177,11 +176,11 @@ $display_photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : 'de
             outline: none;
         }
         input[type="file"] {
-            padding: 8px; /* Lebih kecil untuk file input */
+            padding: 8px; 
             cursor: pointer;
         }
         button[type="submit"] {
-            background-color: #28a745; /* Hijau */
+            background-color: #28a745; 
             color: white;
             padding: 12px 25px;
             border: none;
@@ -198,15 +197,15 @@ $display_photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : 'de
             transform: translateY(-2px);
         }
 
-        /* Pesan sukses/error */
+        
         .message {
             margin-top: 20px;
             padding: 12px 20px;
             border-radius: 8px;
             font-weight: bold;
             text-align: center;
-            opacity: 0; /* Mulai dengan tidak terlihat */
-            animation: fadeIn 0.5s forwards; /* Animasi fade in */
+            opacity: 0; 
+            animation: fadeIn 0.5s forwards; 
         }
         .message.success {
             background-color: #d4edda;
@@ -219,18 +218,18 @@ $display_photo = !empty($user['photo']) ? htmlspecialchars($user['photo']) : 'de
             border: 1px solid #f5c6cb;
         }
 
-        /* Animasi */
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsif untuk layar kecil */
+        
         @media (max-width: 600px) {
             .profile-container {
                 padding: 25px;
                 margin: 10px;
-                max-width: calc(100% - 20px); /* Sesuaikan lebar pada layar kecil */
+                max-width: calc(100% - 20px);
             }
             h2 {
                 font-size: 1.5em;
