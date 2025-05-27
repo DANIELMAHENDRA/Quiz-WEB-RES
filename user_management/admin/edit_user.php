@@ -10,10 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $role = $_POST["role"];
 
-    // Update tanpa ubah password
+    
     $sql = "UPDATE users SET name='$name', email='$email', role='$role' WHERE id=$id";
     $conn->query($sql);
-    header("Location: dashboard_admin.php"); // Pastikan ini mengarah ke dashboard admin
+    header("Location: dashboard_admin.php"); 
     exit();
 }
 ?>
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-sizing: border-box;
         }
         button[type="submit"] {
-            background-color: #007bff; /* Biru untuk update */
+            background-color: #007bff; 
             color: white;
             padding: 12px 20px;
             border: none;
