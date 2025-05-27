@@ -2,7 +2,7 @@
 session_start();
 include '../db.php';
 
-// Proteksi role admin
+
 if (!isset($_SESSION["user"]) || $_SESSION["user"]["role"] !== 'admin') {
     header("Location: ../login.php");
     exit();
@@ -33,7 +33,7 @@ $result = $conn->query("SELECT * FROM users");
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 900px; /* Lebar yang lebih besar untuk tabel */
+            max-width: 900px; 
             margin-bottom: 20px;
         }
         h2 {
@@ -43,11 +43,11 @@ $result = $conn->query("SELECT * FROM users");
         }
         .action-buttons {
             display: flex;
-            justify-content: flex-end; /* Pindahkan tombol ke kanan */
+            justify-content: flex-end; 
             margin-bottom: 20px;
         }
         .action-buttons a {
-            background-color: #28a745; /* Hijau untuk tambah user */
+            background-color: #28a745; 
             color: white;
             padding: 10px 15px;
             border-radius: 5px;
@@ -87,14 +87,14 @@ $result = $conn->query("SELECT * FROM users");
             text-decoration: underline;
         }
         .table-actions a.delete {
-            color: #dc3545; /* Merah untuk hapus */
+            color: #dc3545; 
         }
         .logout-link {
             display: block;
             width: fit-content;
             margin: 20px auto;
             padding: 10px 20px;
-            background-color: #dc3545; /* Warna merah untuk logout */
+            background-color: #dc3545; 
             color: white;
             border-radius: 5px;
             text-align: center;
