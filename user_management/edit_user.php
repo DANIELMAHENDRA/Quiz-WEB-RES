@@ -8,14 +8,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name  = $_POST["name"];
     $email = $_POST["email"];
     
-    // Jika user upload foto baru
+    
     if ($_FILES["photo"]["name"]) {
         $photo = $_FILES["photo"]["name"];
         $tmp   = $_FILES["photo"]["tmp_name"];
         move_uploaded_file($tmp, "uploads/" . $photo);
         $conn->query("UPDATE users SET name='$name', email='$email', photo='$photo' WHERE id=$id");
     } else {
-        // Jika tidak upload foto
+        
         $conn->query("UPDATE users SET name='$name', email='$email' WHERE id=$id");
     }
 
