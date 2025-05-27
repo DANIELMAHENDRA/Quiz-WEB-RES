@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - GudangNET</title>
+    <title>Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -60,15 +60,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .login-wrapper {
-            background-color: rgba(255, 255, 255, 0.95); /* Semi-transparan putih */
+            background-color: rgba(255, 255, 255, 0.95); 
             padding: 40px;
             border-radius: 15px;
             box-shadow: var(--shadow);
             width: 100%;
-            max-width: 450px; /* Lebar lebih proporsional */
+            max-width: 450px; 
             text-align: center;
-            backdrop-filter: blur(5px); /* Efek blur pada background di belakang kotak login */
-            -webkit-backdrop-filter: blur(5px); /* Kompatibilitas Safari */
+            backdrop-filter: blur(5px); 
+            -webkit-backdrop-filter: blur(5px); 
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -91,13 +91,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-bottom: 25px;
             display: flex;
             justify-content: center;
-            gap: 10px; /* Jarak antar tombol */
+            gap: 10px;
         }
 
         .toggle-role button {
             padding: 12px 25px;
             border: 2px solid var(--primary-blue);
-            border-radius: 30px; /* Bentuk pil */
+            border-radius: 30px; 
             background-color: transparent;
             color: var(--primary-blue);
             font-size: 1em;
@@ -121,17 +121,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         form {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Jarak antar input */
+            gap: 15px; 
         }
 
         input[type="email"],
         input[type="password"] {
             padding: 15px 20px;
-            width: calc(100% - 40px); /* Kurangi padding dari total width */
+            width: calc(100% - 40px); 
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 1em;
-            box-sizing: border-box; /* Pastikan padding masuk dalam lebar */
+            box-sizing: border-box; 
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -177,7 +177,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-weight: 700;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
-            width: 100%; /* Lebar penuh */
+            width: 100%; 
         }
 
         button[type="submit"]:hover {
